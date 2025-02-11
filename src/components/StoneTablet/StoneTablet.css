@@ -1,0 +1,193 @@
+.stone-tablet {
+    width: 100%;
+    height: 80%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tablet-inner {
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(0, 0, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(0, 0, 0, 0.1) 0%, transparent 40%),
+        linear-gradient(135deg,
+            #4a5568 0%,
+            #2d3748 50%,
+            #1a202c 100%);
+    border-radius: 4px;
+    padding: 40px 30px;
+    position: relative;
+    box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 60px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tablet-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Frame border */
+.tablet-inner::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 3px solid rgba(100, 150, 255, 0.3);
+    border-radius: 6px;
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.tablet-title {
+    color: rgba(200, 220, 255, 0.9);
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow:
+        0 0 10px rgba(100, 150, 255, 0.5),
+        2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.tablet-text {
+    color: rgba(200, 220, 255, 0.8);
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    text-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.5),
+        0 0 8px rgba(100, 150, 255, 0.3);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.crack {
+    position: absolute;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(100, 150, 255, 0.1),
+            transparent);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.crack-1 {
+    top: 10%;
+    left: 20%;
+    width: 3px;
+    height: 40%;
+    transform: rotate(15deg);
+    box-shadow:
+        -1px 0 2px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(100, 150, 255, 0.2);
+}
+
+.crack-2 {
+    top: 30%;
+    right: 25%;
+    width: 3px;
+    height: 30%;
+    transform: rotate(-25deg);
+    box-shadow:
+        1px 0 2px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(100, 150, 255, 0.2);
+}
+
+.crack-3 {
+    bottom: 20%;
+    left: 40%;
+    width: 3px;
+    height: 25%;
+    transform: rotate(45deg);
+    box-shadow:
+        -1px 0 2px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(100, 150, 255, 0.2);
+}
+
+.moss {
+    position: absolute;
+    background: radial-gradient(circle at center,
+            rgba(100, 200, 100, 0.15),
+            transparent 70%);
+    border-radius: 50%;
+    filter: blur(4px);
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.moss-1 {
+    top: 5%;
+    left: 10%;
+    width: 60px;
+    height: 45px;
+}
+
+.moss-2 {
+    bottom: 15%;
+    right: 8%;
+    width: 50px;
+    height: 40px;
+}
+
+.moss-3 {
+    top: 40%;
+    right: 15%;
+    width: 40px;
+    height: 30px;
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow:
+            0 0 10px rgba(100, 150, 255, 0.5),
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    50% {
+        text-shadow:
+            0 0 15px rgba(100, 150, 255, 0.7),
+            2px 2px 4px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(100, 150, 255, 0.3);
+    }
+
+    100% {
+        text-shadow:
+            0 0 10px rgba(100, 150, 255, 0.5),
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.tablet-title {
+    animation: glowPulse 3s ease-in-out infinite;
+}

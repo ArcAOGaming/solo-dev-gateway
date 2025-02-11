@@ -1,0 +1,1 @@
+export { StoneTablet } from './StoneTablet';

@@ -1,0 +1,200 @@
+@keyframes notificationPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    60% {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    80% {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.cyber-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: notificationPop 0.35s cubic-bezier(0.16, 1.2, 0.3, 1.1) forwards;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgb(0, 195, 255);
+    background:
+        linear-gradient(135deg,
+            rgb(30, 41, 59) 0%,
+            rgb(51, 65, 85) 50%,
+            rgb(30, 41, 59) 100%),
+        linear-gradient(45deg,
+            transparent 25%,
+            rgba(15, 23, 42, 0.3) 49%,
+            rgba(15, 23, 42, 0.4) 50%,
+            rgba(15, 23, 42, 0.3) 51%,
+            transparent 75%) 0 0 / 80px 80px,
+        linear-gradient(-45deg,
+            transparent 25%,
+            rgba(15, 23, 42, 0.2) 49%,
+            rgba(15, 23, 42, 0.3) 50%,
+            rgba(15, 23, 42, 0.2) 51%,
+            transparent 75%) 40px 40px / 80px 80px,
+        linear-gradient(90deg,
+            transparent 45%,
+            rgba(15, 23, 42, 0.3) 49%,
+            rgba(15, 23, 42, 0.4) 50%,
+            rgba(15, 23, 42, 0.3) 51%,
+            transparent 55%) center / 200% 100%,
+        repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.03) 0,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px,
+            transparent 4px) 0 0 / 8px 8px;
+    border: 1px solid rgba(0, 195, 255, 0.15);
+    box-shadow:
+        0 0 10px rgba(0, 195, 255, 0.15),
+        inset 0 0 5px rgba(0, 195, 255, 0.08),
+        0 0 0 1px rgb(15, 23, 42),
+        0 0 0 2px rgba(0, 195, 255, 0.08),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+        inset -2px -2px 4px rgba(15, 23, 42, 0.3);
+    text-shadow: 0 0 8px rgba(0, 195, 255, 0.3);
+    font-weight: 300;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+}
+
+.cyber-button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid rgba(0, 195, 255, 0.25);
+    border-radius: 50%;
+    background: rgba(0, 195, 255, 0.08);
+    box-shadow:
+        inset 1px 1px 2px rgba(255, 255, 255, 0.15),
+        inset -1px -1px 2px rgba(15, 23, 42, 0.3),
+        0 0 4px rgba(0, 195, 255, 0.1);
+}
+
+.cyber-button-text {
+    padding-right: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes glisten {
+    0% {
+        background-position: 200% 50%, 40px 40px, 0 0, 0 0;
+    }
+
+    100% {
+        background-position: -200% 50%, 40px 40px, 0 0, 0 0;
+    }
+}
+
+.cyber-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            transparent 5%,
+            rgba(0, 195, 255, 0.1) 15%,
+            rgba(0, 195, 255, 0.2) 25%,
+            rgba(0, 195, 255, 0.1) 35%,
+            transparent 45%,
+            transparent 100%);
+    background-size: 400% 100%;
+    background-position: 200% 50%;
+    transition: none;
+    pointer-events: none;
+    opacity: 0;
+    border-radius: 3px;
+}
+
+.cyber-button:hover {
+    color: rgb(200, 230, 255);
+    border-color: rgba(0, 195, 255, 0.5);
+    box-shadow:
+        0 0 15px rgba(0, 195, 255, 0.25),
+        inset 0 0 8px rgba(0, 195, 255, 0.15),
+        0 0 0 1px rgb(15, 23, 42),
+        0 0 0 2px rgba(0, 195, 255, 0.2),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.25),
+        inset -2px -2px 4px rgba(15, 23, 42, 0.4);
+    text-shadow: 0 0 12px rgba(0, 195, 255, 0.5);
+}
+
+.cyber-button:hover::before {
+    opacity: 1;
+    animation: glisten 3s linear infinite;
+}
+
+.cyber-button:hover .cyber-button-icon {
+    border-color: rgba(0, 195, 255, 0.4);
+    background: rgba(0, 195, 255, 0.15);
+    box-shadow:
+        inset 1px 1px 3px rgba(255, 255, 255, 0.25),
+        inset -1px -1px 3px rgba(15, 23, 42, 0.4),
+        0 0 6px rgba(0, 195, 255, 0.2);
+}
+
+.cyber-button:active {
+    transform: translate(-50%, -48%);
+    background:
+        linear-gradient(135deg,
+            rgb(24, 33, 47) 0%,
+            rgb(38, 50, 71) 50%,
+            rgb(24, 33, 47) 100%),
+        linear-gradient(45deg,
+            transparent 25%,
+            rgba(15, 23, 42, 0.4) 49%,
+            rgba(15, 23, 42, 0.5) 50%,
+            rgba(15, 23, 42, 0.4) 51%,
+            transparent 75%) 0 0 / 80px 80px,
+        linear-gradient(-45deg,
+            transparent 25%,
+            rgba(15, 23, 42, 0.3) 49%,
+            rgba(15, 23, 42, 0.4) 50%,
+            rgba(15, 23, 42, 0.3) 51%,
+            transparent 75%) 40px 40px / 80px 80px,
+        repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.01) 0,
+            rgba(255, 255, 255, 0.01) 1px,
+            transparent 1px,
+            transparent 4px) 0 0 / 8px 8px;
+    box-shadow:
+        0 0 10px rgba(0, 195, 255, 0.15),
+        inset 0 0 5px rgba(0, 195, 255, 0.08),
+        0 0 0 1px rgb(15, 23, 42),
+        0 0 0 2px rgba(0, 195, 255, 0.08),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.15),
+        inset -1px -1px 3px rgba(15, 23, 42, 0.4);
+}
