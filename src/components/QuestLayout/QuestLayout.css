@@ -1,0 +1,79 @@
+.quest-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  width: 90%;
+  max-width: 1400px;
+  height: 90vh;
+  margin: 20px auto;
+  background: rgba(13, 20, 40, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 195, 255, 0.2);
+}
+
+.quest-tablet {
+  grid-column: 1;
+  grid-row: 1;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.quest-editor {
+  grid-column: 2;
+  grid-row: 1;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.quest-output {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  max-height: 100%;
+  overflow: auto;
+}
+
+/* Glowing submit button */
+.submit-button {
+  background: transparent;
+  border: 2px solid #00c3ff;
+  color: #00c3ff;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.submit-button:hover {
+  background: rgba(0, 195, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+}
+
+/* Success animation */
+@keyframes success-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
+
+.success {
+  animation: success-pulse 1.5s ease-out;
+  border-color: #00ff00;
+  color: #00ff00;
+}
