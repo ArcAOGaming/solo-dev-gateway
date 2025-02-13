@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { ShaderMaterial } from 'three';
 import { CyberButton } from '../CyberButton';
 import { TextEditor } from '../TextEditor';
+import { StoneTablet } from '../StoneTablet';
 import './Portal.css';
 
 // Custom shader for the portal effect
@@ -131,6 +132,9 @@ const PortalEffect = ({ isZooming }: PortalEffectProps) => {
     const portalRef = useRef<THREE.Group>(null);
     const time = useRef(0);
     const zoom = useRef(0);
+    const direction = useRef(1); // 1 for forward, -1 for reverse
+    const maxTime = useRef(3.6); // Maximum time before reversing
+    const rotationSpeed = useRef(0.06);
 
     // Create a large high-resolution triangulated plane for the portal
     const geometry = useMemo(() => {
@@ -156,17 +160,30 @@ const PortalEffect = ({ isZooming }: PortalEffectProps) => {
 
     useFrame((state, delta) => {
         if (material) {
-            time.current += delta;
-            material.uniforms.uTime.value = time.current;
+            // Smooth time progression with easing
+            const easedDelta = delta * (1 - Math.abs(time.current - maxTime.current / 2) / maxTime.current);
+            time.current += easedDelta * direction.current * 1.2;
+            
+            // Smooth direction reversal
+            if (time.current >= maxTime.current) {
+                direction.current = -1;
+                time.current = maxTime.current; // Clamp at max
+            }
+            
+            material.uniforms.uTime.value = Math.max(0, time.current);
 
-            // Handle zoom animation
+            // Handle zoom animation with smooth easing
             if (isZooming) {
-                zoom.current = Math.min(zoom.current + delta * 2, 5);
+                const targetZoom = 5;
+                const zoomDelta = (targetZoom - zoom.current) * delta;
+                zoom.current = Math.min(zoom.current + zoomDelta * 2, targetZoom);
                 material.uniforms.uZoom.value = zoom.current;
             }
         }
         if (portalRef.current) {
-            portalRef.current.rotation.z += delta * 0.08; // Slightly slower rotation
+            // Smooth rotation that follows the animation progress
+            const rotationDelta = delta * rotationSpeed.current * direction.current;
+            portalRef.current.rotation.z += rotationDelta * (1 - Math.abs(time.current - maxTime.current / 2) / maxTime.current);
         }
     });
 
@@ -179,30 +196,39 @@ const PortalEffect = ({ isZooming }: PortalEffectProps) => {
 
 export const Portal = () => {
     const [isZooming, setIsZooming] = useState(false);
-    const [showEditor, setShowEditor] = useState(false);
-    const [showButton, setShowButton] = useState(false);
+    const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowButton(true);
-        }, 5000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handlePortalClick = () => {
-        if (!isZooming && !showEditor) {
+        // Let portal animation play for a while before starting zoom
+        const zoomTimer = setTimeout(() => {
             setIsZooming(true);
-            setTimeout(() => {
-                setShowEditor(true);
-            }, 2000); // Show editor after zoom animation
-        }
-    };
+        }, 3000);
+
+        // Show content after portal zoom effect
+        const contentTimer = setTimeout(() => {
+            setShowContent(true);
+        }, 4000);
+
+        return () => {
+            clearTimeout(zoomTimer);
+            clearTimeout(contentTimer);
+        };
+    }, []);
 
     return (
         <div className="portal-wrapper">
-            {showEditor ? (
-                <TextEditor />
+            {showContent ? (
+                <div className="content-container">
+                    <div className="quest-side">
+                        <StoneTablet 
+                            questTitle="QUEST INFO"
+                            questDescription="A job-change quest has appeared. You are about to enter the dungeon of code."
+                        />
+                    </div>
+                    <div className="editor-side">
+                        <TextEditor value="" />
+                    </div>
+                </div>
             ) : (
                 <div className="portal-container">
                     <Canvas
@@ -223,11 +249,6 @@ export const Portal = () => {
                             />
                         </EffectComposer>
                     </Canvas>
-                    {showButton && (
-                        <CyberButton onClick={handlePortalClick}>
-                            Enter Portal
-                        </CyberButton>
-                    )}
                 </div>
             )}
         </div>
